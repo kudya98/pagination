@@ -5,10 +5,11 @@ import $ from "jquery";
 class PageBar extends Component {
     gotoPage(number){
         let path = {pathname:`../users/${number}`,
-        size:$('.input-size').val()};
+        size:$('.form-control').val()};
         this.props.history.push(path);
     }
     changeSize(e){
+        if (e.target.value<1) return false;
         let path = {pathname:`../users/1`,
             size:e.target.value};
         this.props.history.push(path);
@@ -16,7 +17,7 @@ class PageBar extends Component {
     fillBar(){
         const links=[];
         const current_page=this.props.currentPage;
-        const pages=this.props.pages-1;
+        const pages=this.props.pages;
         links.push(1);
         links.push(pages);
         for (let i=current_page-2;i<current_page+3;i++) {
@@ -34,9 +35,12 @@ class PageBar extends Component {
                     if (number==this.props.currentPage) return <button  key={number}  onClick={(e)=>e.preventDefault()} className="btn btn-dark active">{number}</button>;
                     else return <button  key={number}  onClick={()=>this.gotoPage(number)} className="btn btn-light">{number}</button>
                 })}
-                <br/><div>Users per page: </div>
-                <input
-                    type="number" className="input-size"  defaultValue={this.props.size} onBlur={(e)=>this.changeSize(e)}/>
+                <form className="form-inline">
+                    <div className="form-group">
+                        <label>Users per page</label>
+                        <input onBlur={(e)=>this.changeSize(e)} defaultValue={this.props.size} type="number" className="form-control mx-sm-3"/>
+                    </div>
+                </form>
             </div>
         );
     }
