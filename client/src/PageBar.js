@@ -5,7 +5,7 @@ import $ from "jquery";
 class PageBar extends Component {
     gotoPage(number){
         let path = {pathname:`../users/${number}`,
-        size:$('.form-control').val()};
+        size:$('input[name=size]').val()};
         this.props.history.push(path);
     }
     changeSize(e){
@@ -38,7 +38,7 @@ class PageBar extends Component {
                 <form className="form-inline">
                     <div className="form-group">
                         <label>Users per page</label>
-                        <input onBlur={(e)=>this.changeSize(e)} defaultValue={this.props.size} type="number" className="form-control mx-sm-3"/>
+                        <input onBlur={(e)=>this.changeSize(e)} defaultValue={this.props.size} name="size" type="number" className="form-control mx-sm-3"/>
                     </div>
                 </form>
             </div>
